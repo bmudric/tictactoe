@@ -8,6 +8,7 @@ import hr.bojan.zadatakkrizickruzic.core.model.Player;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Component
 public class GameManagerImpl implements GameManager {
@@ -22,6 +23,9 @@ public class GameManagerImpl implements GameManager {
 		// create new human player if no such player already exists
 		Player human = this.playerDao.loadPlayerByName(humanPlayer);
 		if(human == null){
+			if(!StringUtils.hasText(humanPlayer)){
+				throw new IllegalArgumentException("Player name must not be empty!");
+			}
 			human = new Player(humanPlayer);
 			this.playerDao.insertNewPlayer(human);
 		}
