@@ -54,4 +54,14 @@ public class GameManagerJunitTest {
 		Assert.isTrue(!secondPlayer.isComputer());
 		Assert.isTrue(humanName.equals(secondPlayer.getName()));
 	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testCreateNewGame_invalidName_null(){
+		this.gameManager.createNewGame(null, true);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCreateNewGame_invalidName_empty(){
+		this.gameManager.createNewGame("", true);
+	}
 }
