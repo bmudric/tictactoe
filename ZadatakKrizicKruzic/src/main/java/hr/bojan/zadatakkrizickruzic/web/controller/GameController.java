@@ -25,8 +25,13 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="game/new", method=RequestMethod.GET)
-	public int getNewGame(String first, String second){
-		return this.gameService.createNewGame(first, second);
+	public int getNewGame(String first, String second, HttpServletResponse response){
+		try{
+			return this.gameService.createNewGame(first, second);
+		}catch(RuntimeException re){
+			response.setStatus(HttpStatus.PRECONDITION_FAILED.value());
+			return 0;
+		}
 	}
 	
 	@RequestMapping(value="game/play", method=RequestMethod.GET)
