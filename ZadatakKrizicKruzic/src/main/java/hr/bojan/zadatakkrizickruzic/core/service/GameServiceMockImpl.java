@@ -7,14 +7,12 @@ import hr.bojan.zadatakkrizickruzic.core.model.IllegalAction;
 import hr.bojan.zadatakkrizickruzic.core.model.Player;
 import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
 
-import org.springframework.stereotype.Component;
-
 
 /**
  * A mock GameService implementation.
  * @author Bojan
  */
-@Component
+//@Component
 public class GameServiceMockImpl implements GameService {
 
 	@Override
