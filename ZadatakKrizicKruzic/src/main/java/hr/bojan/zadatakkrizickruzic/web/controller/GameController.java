@@ -25,12 +25,12 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="game/new", method=RequestMethod.GET)
-	public int getNewGameBoth(String first, String second){
+	public int getNewGame(String first, String second){
 		return this.gameService.createNewGame(first, second);
 	}
 	
 	@RequestMapping(value="game/play", method=RequestMethod.GET)
-	public Game getNewGameBoth(int gameId, short row, short column, HttpServletResponse response){
+	public Game getPlayGame(int gameId, short row, short column, HttpServletResponse response){
 		try{
 			return this.gameService.playGame(gameId, row, column);
 		}catch(IllegalActionException iae){
