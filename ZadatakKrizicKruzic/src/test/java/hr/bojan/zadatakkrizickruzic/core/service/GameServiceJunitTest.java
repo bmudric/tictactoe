@@ -1,6 +1,7 @@
 package hr.bojan.zadatakkrizickruzic.core.service;
 
 import hr.bojan.zadatakkrizickruzic.ZadatakKrizicKruzicApplication;
+import hr.bojan.zadatakkrizickruzic.core.model.Game;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,17 @@ public class GameServiceJunitTest {
 	public void testCreateNewGame_humanSecond2() {
 		int gameId = this.gameService.createNewGame("", "HumanSecond2");
 		Assert.isTrue(gameId > 0);
+	}
+	
+	@Test()
+	public void testGetGameStatus() {
+		String humanName = "playerGameStatus1";
+		int gameId = this.gameService.createNewGame(humanName, "");
+		Assert.isTrue(gameId > 0);
+		
+		Game game = this.gameService.getGameStatus(gameId);
+		Assert.isTrue(gameId == game.getGameId());
+		Assert.isTrue(humanName.equals(game.getFirstPlayer().getName()));
 	}
 
 }
