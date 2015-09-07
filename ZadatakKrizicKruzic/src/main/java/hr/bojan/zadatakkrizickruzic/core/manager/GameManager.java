@@ -11,4 +11,10 @@ public interface GameManager {
 	 * @return newly created game
 	 */
 	public Game createNewGame(String humanPlayer, boolean computerGoesFirst);
+	
+	/**
+	 * @param gameId
+	 * @return game for gameId, null if none exists
+	 */
+	public Game loadGameById(int gameId);
 }

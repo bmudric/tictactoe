@@ -50,4 +50,9 @@ public class GameManagerImpl implements GameManager {
 		return newGame;
 	}
 
+	@Override
+	public Game loadGameById(int gameId) {
+		return this.gameDao.loadGameById(gameId);
+	}
+
 }
