@@ -50,8 +50,10 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public Game getGameStatus(int gameId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(gameId <= 0){
+			throw new IllegalArgumentException("gameId must be a positive integer!");
+		}
+		return this.gameManager.loadGameById(gameId);
 	}
 
 	@Override
