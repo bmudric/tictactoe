@@ -149,10 +149,20 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	/**
-	 * @return false if cell already taken or out of bounds
+	 * @return false if cell already taken or out of bounds, true if ok
 	 */
-	private boolean isMoveLegal(){
-		return false;
+	private boolean isMoveLegal(Cell[][] gameBoard, short row, short column){
+		// out of board bounds
+		if(gameBoard.length <= column || column < 0 || gameBoard[0].length <= row || row < 0){
+			return false;
+		}
+		// cell already taken
+		else if(gameBoard[row][column].getValue() != CellValue.BLANK){
+			return false;
+		}
+		else{
+			return true;
+		}
 	}
 	
 	/**
