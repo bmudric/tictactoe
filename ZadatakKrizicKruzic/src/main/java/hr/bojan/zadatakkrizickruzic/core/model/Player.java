@@ -25,4 +25,14 @@ public class Player {
 		this.isComputer = isComputer;
 	}
 	
+	public void incrementWins(){
+		this.wins++;
+	}
+	public void incrementLosses(){
+		this.losses++;
+	}
+	public void incrementDraws(){
+		this.draws++;
+	}
+	
 }
