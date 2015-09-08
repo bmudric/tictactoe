@@ -14,5 +14,8 @@ public class Cell {
 	public Cell() {
 		this.value = CellValue.BLANK;
 	}
+	public Cell(char value) {
+		this.value = CellValue.getValueForChar(value);
+	}
 
 }
