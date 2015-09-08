@@ -2,6 +2,8 @@ package hr.bojan.zadatakkrizickruzic.core.model;
 
 import lombok.Data;
 
+import org.springframework.util.StringUtils;
+
 
 /**
  * Represents a game of tic-tac-toe.
@@ -19,15 +21,33 @@ public class Game {
 	private Cell[][] gameBoard;
 	
 	public Game() {
-		this.gameBoard = new Cell[3][3];
-		for (int row = 0; row < 3; row ++){
-		    for (int col = 0; col < 3; col++){
-		        this.gameBoard[row][col] = new Cell();
-		    }
-		}
+		this.gameBoard = createGameBoard("_________");
 	}
 	
-	public Player getHumanPlayer(){
+	/**
+	 * Creates a new game board using boardValues to fill it.
+	 * @param boardValues must be of length 9, 3 chars for first row, 3 for second row and 3 for third row
+	 * @return new game board
+	 */
+	public static Cell[][] createGameBoard(String boardValues){
+		if(!StringUtils.hasText(boardValues) || boardValues.length() != 9){
+			throw new IllegalArgumentException("Board must have 9 cells");
+		}
+		
+		char[] charValues = boardValues.toCharArray();
+		Cell[][] newGameBoard = new Cell[3][3];
+		
+		// translate list of characters onto the new game board
+		for (int row = 0; row < 3; row ++){
+			for (int col = 0; col < 3; col++){
+		    	char cellValue = charValues[(row * 3) + col];
+		    	newGameBoard[row][col] = new Cell(cellValue);
+		    }
+		}
+		return newGameBoard;
+	}
+	
+	public Player determineHumanPlayer(){
 		if(!firstPlayer.isComputer()){
 			return firstPlayer;
 		}
