@@ -5,6 +5,8 @@ import hr.bojan.zadatakkrizickruzic.core.model.Game;
 import hr.bojan.zadatakkrizickruzic.core.model.Player;
 import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -45,9 +47,12 @@ public class GameServiceImpl implements GameService {
 		
 		Game newGame = this.gameManager.createNewGame(humanPlayer, computerGoesFirst);
 		
+		short gameDifficulty = calculateGameDifficulty(newGame.getHumanPlayer());
+		newGame.setDifficulty(gameDifficulty);
+		
 		return newGame.getGameId();
 	}
-
+	
 	@Override
 	public Game getGameStatus(int gameId) {
 		if(gameId <= 0){
@@ -80,9 +85,30 @@ public class GameServiceImpl implements GameService {
 	/**
 	 * Choose between available AI strategies based on human player's past performance.
 	 * Difficult AI if player won 90% or more games, easy AI if player won 30% or less, else random.
+	 * @return game difficulty
 	 */
-	private void determinePlayingStrategy(){
+	private short calculateGameDifficulty(Player player){
+		// calculate player win ratio
+		int wins = player.getWins();
+		int losses = player.getLosses();
+		int draws = player.getDraws();
+		float totalGames = wins + losses + draws;
+		float playerWinRatio = 0;
+		if(wins > 0){
+			playerWinRatio = wins / totalGames;
+		}
 		
+		// calculate game difficulty
+		if(playerWinRatio > GAME_DIFFICULTY_LIMIT_HIGH){
+			return GAME_DIFFICULTY_MAX;
+		}
+		else if(playerWinRatio < GAME_DIFFICULTY_LIMIT_LOW){
+			return GAME_DIFFICULTY_MIN;
+		}
+		else{
+			short difficultySpan = GAME_DIFFICULTY_MAX - GAME_DIFFICULTY_MIN;
+			return (short) (GAME_DIFFICULTY_MIN + new Random().nextInt(difficultySpan + 1));
+		}
 	}
 	
 	/**
