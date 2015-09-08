@@ -58,4 +58,16 @@ public class Game {
 			throw new RuntimeException("No human players found in the game!");
 		}
 	}
+	
+	public Player determineComputerPlayer(){
+		if(firstPlayer.isComputer()){
+			return firstPlayer;
+		}
+		else if(secondPlayer.isComputer()){
+			return secondPlayer;
+		}
+		else{
+			throw new RuntimeException("No computer players found in the game!");
+		}
+	}
 }
