@@ -1,6 +1,9 @@
 package hr.bojan.zadatakkrizickruzic.core.service;
 
 import hr.bojan.zadatakkrizickruzic.core.manager.GameManager;
+import hr.bojan.zadatakkrizickruzic.core.model.Cell;
+import hr.bojan.zadatakkrizickruzic.core.model.CellValue;
+import hr.bojan.zadatakkrizickruzic.core.model.EndgameStatus;
 import hr.bojan.zadatakkrizickruzic.core.model.Game;
 import hr.bojan.zadatakkrizickruzic.core.model.Player;
 import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
@@ -47,7 +50,7 @@ public class GameServiceImpl implements GameService {
 		
 		Game newGame = this.gameManager.createNewGame(humanPlayer, computerGoesFirst);
 		
-		short gameDifficulty = calculateGameDifficulty(newGame.getHumanPlayer());
+		short gameDifficulty = calculateGameDifficulty(newGame.determineHumanPlayer());
 		newGame.setDifficulty(gameDifficulty);
 		
 		return newGame.getGameId();
@@ -69,10 +72,80 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	/**
-	 * @return true if win or no more moves available
+	 * @param gameBoard to evaluate
+	 * @return who won the game if it is over
 	 */
-	private boolean isGameOver(){
+	private EndgameStatus determineEndgameStatus(Cell[][] gameBoard){
+		if(playerWon(gameBoard, CellValue.X)){
+			return EndgameStatus.X_WON;
+		}
+		else if(playerWon(gameBoard, CellValue.O)){
+			return EndgameStatus.O_WON;
+		}
+		else if(boardFull(gameBoard)){
+			return EndgameStatus.DRAW;
+		}
+		else{
+			return EndgameStatus.STILL_IN_PROGRESS;
+		}
+	}
+	
+	/**
+	 * @param gameBoard to evaluate
+	 * @param mark of the player
+	 * @return true if the player has won
+	 */
+	private boolean playerWon(Cell[][] gameBoard, CellValue mark){
+		short[] columnCounter = new short[]{0,0,0};
+		short[] rowCounter = new short[]{0,0,0};
+		short diagLRCounter = 0;
+		short diagRLCounter = 0;
+		
+		// count in-line occurences
+		for (int row = 0; row < 3; row ++){
+			for (int col = 0; col < 3; col++){
+				if(gameBoard[row][col].getValue() == mark){
+					columnCounter[col]++;
+					rowCounter[row]++;
+				}
+				if(row == col && gameBoard[row][col].getValue() == mark){
+					diagLRCounter++;
+				}
+				if((2 - row) == col && gameBoard[row][col].getValue() == mark){
+					diagRLCounter++;
+				}
+		    }
+		}
+		
+		// check diagonal counters
+		if(diagLRCounter == 3 || diagRLCounter == 3){
+			return true;
+		}
+		
+		// check row & column counters
+		for (int i = 0; i < 3; i ++){
+			if(rowCounter[i] == 3 || columnCounter[i] == 3){
+				return true;
+			}
+		}
+		
+		// no winning line found
 		return false;
+	}
+	
+	/**
+	 * @param gameBoard to evaluate
+	 * @return true if the game board is completely full
+	 */
+	private boolean boardFull(Cell[][] gameBoard){
+		for (int row = 0; row < 3; row ++){
+			for (int col = 0; col < 3; col++){
+				if(gameBoard[row][col].getValue() == CellValue.BLANK){
+					return false;
+				}
+		    }
+		}
+		return true;
 	}
 	
 	/**
