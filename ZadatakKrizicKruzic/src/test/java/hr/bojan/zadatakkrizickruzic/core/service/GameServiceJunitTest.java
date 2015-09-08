@@ -189,5 +189,30 @@ public class GameServiceJunitTest {
 		Cell[][] gameCells = Game.createGameBoard(gameBoard);
 		return Whitebox.invokeMethod(this.gameService, "determineEndgameStatus", (Object) gameCells);
 	}
+	
+	@Test
+	public void testIsMoveLegal() throws Exception{
+		Assert.isTrue(invokeMoveLegal("_________", 0, 0));
+		Assert.isTrue(invokeMoveLegal("_________", 1, 1));
+		Assert.isTrue(invokeMoveLegal("_________", 2, 2));
+		
+		Assert.isTrue(!invokeMoveLegal("_________", 3, 3));
+		Assert.isTrue(!invokeMoveLegal("_________", 0, 3));
+		Assert.isTrue(!invokeMoveLegal("_________", 3, 0));
+		Assert.isTrue(!invokeMoveLegal("_________", -1, -1));
+		Assert.isTrue(!invokeMoveLegal("_________", -1, 1));
+		Assert.isTrue(!invokeMoveLegal("_________", 1, -1));
+		
+		Assert.isTrue(!invokeMoveLegal("X________", 0, 0));
+		Assert.isTrue(!invokeMoveLegal("O________", 0, 0));
+		
+		Assert.isTrue(invokeMoveLegal("X________", 1, 0));
+		Assert.isTrue(invokeMoveLegal("O________", 0, 1));
+		Assert.isTrue(invokeMoveLegal("O________", 1, 1));
+	}
 
+	private boolean invokeMoveLegal(String gameBoard, int row, int column) throws Exception{
+		Cell[][] gameCells = Game.createGameBoard(gameBoard);
+		return Whitebox.invokeMethod(this.gameService, "isMoveLegal", (Object) gameCells, (short) row, (short) column);
+	}
 }
