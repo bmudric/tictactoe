@@ -7,6 +7,11 @@ import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
  * @author Bojan
  */
 public interface GameService {
+	
+	public static final short GAME_DIFFICULTY_MAX = 4;
+	public static final short GAME_DIFFICULTY_MIN = 1;
+	public static final float GAME_DIFFICULTY_LIMIT_LOW = 0.3f;
+	public static final float GAME_DIFFICULTY_LIMIT_HIGH = 0.9f;
 
 	/**
 	 * '' (blank) is allowed instead of 'computer'. Two computer players are not allowed.
