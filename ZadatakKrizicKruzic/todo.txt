@@ -1,2 +1,4 @@
 - write unit tests
 - validate request parameters
+- exception handling
+- logging
