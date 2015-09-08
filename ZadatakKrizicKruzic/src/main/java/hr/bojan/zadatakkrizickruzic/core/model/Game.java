@@ -12,6 +12,7 @@ public class Game {
 
 	private int gameId;
 	private GameStatus status;
+	private short difficulty;
 	private Player firstPlayer;
 	private Player secondPlayer;
 	private Player winner;
@@ -23,6 +24,18 @@ public class Game {
 		    for (int col = 0; col < 3; col++){
 		        this.gameBoard[row][col] = new Cell();
 		    }
+		}
+	}
+	
+	public Player getHumanPlayer(){
+		if(!firstPlayer.isComputer()){
+			return firstPlayer;
+		}
+		else if(!secondPlayer.isComputer()){
+			return secondPlayer;
+		}
+		else{
+			throw new RuntimeException("No human players found in the game!");
 		}
 	}
 }
