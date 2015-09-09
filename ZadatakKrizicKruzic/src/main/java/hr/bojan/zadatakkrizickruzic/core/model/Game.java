@@ -14,7 +14,7 @@ public class Game {
 
 	private int gameId;
 	private GameStatus status;
-	private short difficulty;
+	private int difficulty;
 	private Player firstPlayer;
 	private Player secondPlayer;
 	private Player winner;

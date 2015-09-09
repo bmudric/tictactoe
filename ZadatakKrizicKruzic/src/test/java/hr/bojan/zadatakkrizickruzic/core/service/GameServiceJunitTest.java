@@ -81,14 +81,14 @@ public class GameServiceJunitTest {
 	
 	@Test
 	public void testCalculateGameDifficulty() throws Exception{
-		Set<Short> possibleDifficulties = new HashSet<>();
-		for(short i = GameService.GAME_DIFFICULTY_MIN; i <= GameService.GAME_DIFFICULTY_MAX; i++){
+		Set<Integer> possibleDifficulties = new HashSet<>();
+		for(int i = GameService.GAME_DIFFICULTY_MIN; i <= GameService.GAME_DIFFICULTY_MAX; i++){
 			possibleDifficulties.add(i);
 		}
 		
-		Set<Short> newPlayerDiffs = new HashSet<>();
+		Set<Integer> newPlayerDiffs = new HashSet<>();
 		for(int i = 0; i < 100; i++){
-			short newPlayerDiff = invokeCalculateDifficulty(0, 0, 0);
+			int newPlayerDiff = invokeCalculateDifficulty(0, 0, 0);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MIN <= newPlayerDiff);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MAX >= newPlayerDiff);
 			newPlayerDiffs.add(newPlayerDiff);
@@ -101,27 +101,27 @@ public class GameServiceJunitTest {
 		Assert.isTrue(GameService.GAME_DIFFICULTY_MIN == invokeCalculateDifficulty(10, 100, 1));
 		Assert.isTrue(GameService.GAME_DIFFICULTY_MIN == invokeCalculateDifficulty(10, 1, 100));
 		
-		Set<Short> averagePlayer1Diffs = new HashSet<>();
+		Set<Integer> averagePlayer1Diffs = new HashSet<>();
 		for(int i = 0; i < 100; i++){
-			short averagePlayer1Diff = invokeCalculateDifficulty(10, 10, 10);
+			int averagePlayer1Diff = invokeCalculateDifficulty(10, 10, 10);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MIN <= averagePlayer1Diff);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MAX >= averagePlayer1Diff);
 			averagePlayer1Diffs.add(averagePlayer1Diff);
 		}
 		Assert.isTrue(possibleDifficulties.containsAll(averagePlayer1Diffs));
 		
-		Set<Short> averagePlayer2Diffs = new HashSet<>();
+		Set<Integer> averagePlayer2Diffs = new HashSet<>();
 		for(int i = 0; i < 100; i++){
-			short averagePlayer2Diff = invokeCalculateDifficulty(100, 1, 10);
+			int averagePlayer2Diff = invokeCalculateDifficulty(100, 1, 10);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MIN <= averagePlayer2Diff);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MAX >= averagePlayer2Diff);
 			averagePlayer2Diffs.add(averagePlayer2Diff);
 		}
 		Assert.isTrue(possibleDifficulties.containsAll(averagePlayer2Diffs));
 		
-		Set<Short> averagePlayer3Diffs = new HashSet<>();
+		Set<Integer> averagePlayer3Diffs = new HashSet<>();
 		for(int i = 0; i < 100; i++){
-			short averagePlayer3Diff = invokeCalculateDifficulty(100, 20, 20);
+			int averagePlayer3Diff = invokeCalculateDifficulty(100, 20, 20);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MIN <= averagePlayer3Diff);
 			Assert.isTrue(GameService.GAME_DIFFICULTY_MAX >= averagePlayer3Diff);
 			averagePlayer3Diffs.add(averagePlayer3Diff);
@@ -129,12 +129,12 @@ public class GameServiceJunitTest {
 		Assert.isTrue(possibleDifficulties.containsAll(averagePlayer3Diffs));
 	}
 	
-	private short invokeCalculateDifficulty(int wins, int losses, int draws) throws Exception{
+	private int invokeCalculateDifficulty(int wins, int losses, int draws) throws Exception{
 		Player player = new Player("player");
 		player.setWins(wins);
 		player.setLosses(losses);
 		player.setDraws(draws);
-		return Whitebox.<Short> invokeMethod(this.gameService, "calculateGameDifficulty", player);
+		return Whitebox.<Integer> invokeMethod(this.gameService, "calculateGameDifficulty", player);
 	}
 	
 	@Test
@@ -151,6 +151,8 @@ public class GameServiceJunitTest {
 		Assert.isTrue(EndgameStatus.STILL_IN_PROGRESS == invokeDetermineEndgame("_XXX_OOO_"));
 		Assert.isTrue(EndgameStatus.STILL_IN_PROGRESS == invokeDetermineEndgame("_OOO_XXX_"));
 		Assert.isTrue(EndgameStatus.STILL_IN_PROGRESS == invokeDetermineEndgame("XXOXXOOO_"));
+		Assert.isTrue(EndgameStatus.STILL_IN_PROGRESS == invokeDetermineEndgame("XOXO_OXOX"));
+		Assert.isTrue(EndgameStatus.STILL_IN_PROGRESS == invokeDetermineEndgame("OXOX_XOXO"));
 		
 		Assert.isTrue(EndgameStatus.DRAW == invokeDetermineEndgame("XOXOXOOXO"));
 		Assert.isTrue(EndgameStatus.DRAW == invokeDetermineEndgame("XOXOOXXXO"));
@@ -169,6 +171,8 @@ public class GameServiceJunitTest {
 		Assert.isTrue(EndgameStatus.X_WON == invokeDetermineEndgame("XOOOXXOXX"));
 		Assert.isTrue(EndgameStatus.X_WON == invokeDetermineEndgame("XOXOX_XO_"));
 		Assert.isTrue(EndgameStatus.X_WON == invokeDetermineEndgame("_OX_XOX__"));
+		Assert.isTrue(EndgameStatus.X_WON == invokeDetermineEndgame("XOXOXOXOX"));
+		Assert.isTrue(EndgameStatus.X_WON == invokeDetermineEndgame("XXXXOOXOO"));
 		
 		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("OOOOOOOOO"));
 		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("O__O__O__"));
@@ -183,6 +187,8 @@ public class GameServiceJunitTest {
 		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("OXXXOOXOO"));
 		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("OXOXO_OX_"));
 		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("_XO_OXO__"));
+		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("OXOXOXOXO"));
+		Assert.isTrue(EndgameStatus.O_WON == invokeDetermineEndgame("XXOXXOOOO"));
 	}
 	
 	private EndgameStatus invokeDetermineEndgame(String gameBoard) throws Exception{
@@ -213,6 +219,6 @@ public class GameServiceJunitTest {
 
 	private boolean invokeMoveLegal(String gameBoard, int row, int column) throws Exception{
 		Cell[][] gameCells = Game.createGameBoard(gameBoard);
-		return Whitebox.invokeMethod(this.gameService, "isMoveLegal", (Object) gameCells, (short) row, (short) column);
+		return Whitebox.invokeMethod(this.gameService, "isMoveLegal", (Object) gameCells, row, column);
 	}
 }

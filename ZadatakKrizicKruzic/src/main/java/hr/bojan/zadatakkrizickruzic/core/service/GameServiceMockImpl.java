@@ -33,7 +33,7 @@ public class GameServiceMockImpl implements GameService {
 	}
 
 	@Override
-	public Game playGame(int gameId, short row, short column)
+	public Game playGame(int gameId, int row, int column)
 			throws IllegalActionException {
 		Game game = new Game();
 		game.setGameId(gameId);

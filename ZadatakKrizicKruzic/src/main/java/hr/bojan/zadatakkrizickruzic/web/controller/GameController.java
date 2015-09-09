@@ -31,7 +31,7 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="game/play", method=RequestMethod.GET)
-	public Game getPlayGame(int gameId, short row, short column){
+	public Game getPlayGame(int gameId, int row, int column){
 		return this.gameService.playGame(gameId, row, column);
 	}
 	
