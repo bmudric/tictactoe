@@ -47,6 +47,17 @@ public class Game {
 		return newGameBoard;
 	}
 	
+	public static String translateGameBoard(Cell[][] gameBoard){
+		StringBuilder translation = new StringBuilder();
+		for (int row = 0; row < 3; row ++){
+			for (int col = 0; col < 3; col++){
+				CellValue value = gameBoard[row][col].getValue();
+				translation.append(value.getValue());
+		    }
+		}
+		return translation.toString();
+	}
+	
 	public Player determineHumanPlayer(){
 		if(!firstPlayer.isComputer()){
 			return firstPlayer;
