@@ -1,5 +1,7 @@
 package hr.bojan.zadatakkrizickruzic.core.model;
 
+import lombok.Getter;
+
 /**
  * Possible cell values in a game of tic-tac-toe
  * @author Bojan
@@ -22,5 +24,5 @@ public enum CellValue {
 		this.value = value;
 	}
 	
-	private char value;
+	@Getter private char value;
 }
