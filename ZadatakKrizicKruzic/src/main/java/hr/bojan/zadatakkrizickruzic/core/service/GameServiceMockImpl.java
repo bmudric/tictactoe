@@ -1,5 +1,8 @@
 package hr.bojan.zadatakkrizickruzic.core.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hr.bojan.zadatakkrizickruzic.core.model.CellValue;
 import hr.bojan.zadatakkrizickruzic.core.model.Game;
 import hr.bojan.zadatakkrizickruzic.core.model.GameStatus;
@@ -51,4 +54,11 @@ public class GameServiceMockImpl implements GameService {
 		return game;
 	}
 
+	@Override
+	public List<Player> loadStats() {
+		List<Player> players = new ArrayList<Player>();
+		players.add(new Player("human1"));
+		players.add(new Player("human2"));
+		return players;
+	}
 }

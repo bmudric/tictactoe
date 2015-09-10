@@ -367,4 +367,10 @@ public class GameServiceImpl implements GameService {
 		}
 	}
 
+	@Override
+	public List<Player> loadStats() {
+		List<Player> players = this.gameManager.loadStats();
+		players.remove(Player.COMPUTER);
+		return players;
+	}
 }

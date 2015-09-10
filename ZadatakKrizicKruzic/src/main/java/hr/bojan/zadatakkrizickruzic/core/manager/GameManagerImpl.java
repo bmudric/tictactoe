@@ -1,5 +1,7 @@
 package hr.bojan.zadatakkrizickruzic.core.manager;
 
+import java.util.List;
+
 import hr.bojan.zadatakkrizickruzic.core.dao.GameDao;
 import hr.bojan.zadatakkrizickruzic.core.dao.PlayerDao;
 import hr.bojan.zadatakkrizickruzic.core.model.Game;
@@ -55,4 +57,8 @@ public class GameManagerImpl implements GameManager {
 		return this.gameDao.loadGameById(gameId);
 	}
 
+	@Override
+	public List<Player> loadStats() {
+		return this.playerDao.loadAllPlayers();
+	}
 }

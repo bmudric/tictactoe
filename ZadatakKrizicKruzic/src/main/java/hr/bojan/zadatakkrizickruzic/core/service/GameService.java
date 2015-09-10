@@ -1,7 +1,10 @@
 package hr.bojan.zadatakkrizickruzic.core.service;
 
 import hr.bojan.zadatakkrizickruzic.core.model.Game;
+import hr.bojan.zadatakkrizickruzic.core.model.Player;
 import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
+
+import java.util.List;
 
 /**
  * @author Bojan
@@ -26,6 +29,11 @@ public interface GameService {
 	 * @return Game for gameId, null if none found
 	 */
 	public Game getGameStatus(int gameId);
+	
+	/**
+	 * @return list of all game players excluding computer
+	 */
+	public List<Player> loadStats();
 	
 	/**
 	 * Play the next move (row, column) in the game identified by gameId

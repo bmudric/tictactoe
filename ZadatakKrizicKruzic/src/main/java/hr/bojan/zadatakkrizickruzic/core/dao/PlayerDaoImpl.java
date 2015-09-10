@@ -2,6 +2,8 @@ package hr.bojan.zadatakkrizickruzic.core.dao;
 
 import hr.bojan.zadatakkrizickruzic.core.model.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,4 +29,8 @@ public class PlayerDaoImpl implements PlayerDao {
 		return old == null;
 	}
 
+	@Override
+	public List<Player> loadAllPlayers() {
+		return new ArrayList<Player>(this.players.values());
+	}
 }

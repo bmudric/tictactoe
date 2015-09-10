@@ -1,5 +1,7 @@
 package hr.bojan.zadatakkrizickruzic.core.dao;
 
+import java.util.List;
+
 import hr.bojan.zadatakkrizickruzic.core.model.Player;
 
 public interface PlayerDao {
@@ -15,4 +17,9 @@ public interface PlayerDao {
 	 * @return true if player inserted, false if player with that name already exists
 	 */
 	public boolean insertNewPlayer(Player player);
+	
+	/**
+	 * @return list of all game players
+	 */
+	public List<Player> loadAllPlayers();
 }

@@ -1,6 +1,9 @@
 package hr.bojan.zadatakkrizickruzic.core.manager;
 
+import java.util.List;
+
 import hr.bojan.zadatakkrizickruzic.core.model.Game;
+import hr.bojan.zadatakkrizickruzic.core.model.Player;
 
 public interface GameManager {
 
@@ -17,4 +20,9 @@ public interface GameManager {
 	 * @return game for gameId, null if none exists
 	 */
 	public Game loadGameById(int gameId);
+	
+	/**
+	 * @return list of all game players
+	 */
+	public List<Player> loadStats();
 }

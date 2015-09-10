@@ -1,8 +1,12 @@
 package hr.bojan.zadatakkrizickruzic.web.controller;
 
 import hr.bojan.zadatakkrizickruzic.core.model.Game;
+import hr.bojan.zadatakkrizickruzic.core.model.Player;
 import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
 import hr.bojan.zadatakkrizickruzic.core.service.GameService;
+
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,11 @@ public class GameController {
 	@RequestMapping(value="game/play", method=RequestMethod.GET)
 	public Game getPlayGame(int gameId, int row, int column){
 		return this.gameService.playGame(gameId, row, column);
+	}
+	
+	@RequestMapping(value="stats", method=RequestMethod.GET)
+	public List<Player> getStats(){
+		return this.gameService.loadStats();
 	}
 	
 	// EXCEPTION HANDLERS
