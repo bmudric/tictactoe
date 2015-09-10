@@ -8,8 +8,8 @@ import hr.bojan.zadatakkrizickruzic.core.model.exception.IllegalActionException;
  */
 public interface GameService {
 	
-	public static final int GAME_DIFFICULTY_MAX = 4;
-	public static final int GAME_DIFFICULTY_MIN = 1;
+	public static final int GAME_DIFFICULTY_MAX = 5;
+	public static final int GAME_DIFFICULTY_MIN = 2;
 	public static final float GAME_DIFFICULTY_LIMIT_LOW = 0.3f;
 	public static final float GAME_DIFFICULTY_LIMIT_HIGH = 0.9f;
 
