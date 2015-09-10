@@ -1,8 +1,3 @@
-- write unit tests
-- validate request parameters
-- exception handling
-- logging
-- reevaluate usage of short types
 - computer player should use AtomicInteger for counters - higher chance of conflict
 - determine ability to play on any size square field
 - determine ability to play human vs. human and even computer vs. computer
