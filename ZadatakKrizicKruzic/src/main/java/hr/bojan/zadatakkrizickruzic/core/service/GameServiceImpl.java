@@ -196,7 +196,7 @@ public class GameServiceImpl implements GameService {
 		String originalBoard = Game.translateGameBoard(gameBoard);
 		CellValue currentPlayerValue = computerTurn ? CellValue.O : CellValue.X;
 		
-		Move bestMove = new Move(-1, -1, 0);
+		Move bestMove = new Move(-1, -1, computerTurn ? Integer.MIN_VALUE : Integer.MAX_VALUE);
 		for(Move move : possibleMoves){
 			Cell[][] newBoard = Game.createGameBoard(originalBoard);
 			newBoard[move.getRow()][move.getCol()].setValue(currentPlayerValue);
