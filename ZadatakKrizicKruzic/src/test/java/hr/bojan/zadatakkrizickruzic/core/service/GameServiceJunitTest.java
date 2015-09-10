@@ -229,6 +229,7 @@ public class GameServiceJunitTest {
 		testCalculateMove("__X_X__O_", 2, 0, true, new Move(2, 0, 0));
 		testCalculateMove("_X_OO__X_", 2, 0, true, new Move(1, 2, 9));
 		testNotCalculateMove("XO__X_X_O", 2, 0, true);
+//		testCalculateMove("XO__X_X_O", 2, 0, true, new Move(1, 2, 9));
 	}
 	
 	@Test
@@ -237,6 +238,26 @@ public class GameServiceJunitTest {
 		testCalculateMove("__X_X__O_", 3, 0, true, new Move(2, 0, 0));
 		testCalculateMove("_X_OO__X_", 3, 0, true, new Move(1, 2, 9));
 		testNotCalculateMove("XO__X_X_O", 3, 0, true);
+//		testCalculateMove("XO__X_X_O", 3, 0, true, new Move(1, 2, 9));
+	}
+	
+	
+	@Test
+	public void testCalculateMove_diff4() throws Exception{
+		testCalculateMove("XX______O", 4, 0, true, new Move(0, 2, 0));
+		testCalculateMove("__X_X__O_", 4, 0, true, new Move(2, 0, -6));
+		testCalculateMove("_X_OO__X_", 4, 0, true, new Move(1, 2, 9));
+		testNotCalculateMove("XO__X_X_O", 4, 0, true);
+//		testCalculateMove("XO__X_X_O", 4, 0, true, new Move(1, 2, 9));
+	}
+	
+	@Test
+	public void testCalculateMove_diff5() throws Exception{
+		testCalculateMove("XX______O", 5, 0, true, new Move(0, 2, 5));
+		testCalculateMove("__X_X__O_", 5, 0, true, new Move(2, 0, -6));
+		testCalculateMove("_X_OO__X_", 5, 0, true, new Move(1, 2, 9));
+		testNotCalculateMove("XO__X_X_O", 5, 0, true);
+//		testCalculateMove("XO__X_X_O", 5, 0, true, new Move(1, 2, 9));
 	}
 	
 	public void testCalculateMove(String gameBoard, int difficulty, int depth, boolean computerTurn, Move exp) throws Exception{
